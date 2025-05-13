@@ -1,85 +1,85 @@
-# Learn Agentic AI using Dapr Agentic Cloud Ascent (DACA) Design Pattern: From Start to Scale
+# 使用 Dapr Agentic Cloud Ascent (DACA) 设计模式学习 Agentic AI：从入门到规模化
 
-This repo is part of the [Panaversity Certified Agentic & Robotic AI Engineer](https://docs.google.com/document/d/15usu1hkrrRLRjcq_3nCTT-0ljEcgiC44iSdvdqrCprk/edit?usp=sharing) program. It covers AI-201, AI-202 and AI-301 courses.
+该仓库是 [Panaversity 认证 Agentic & Robotic AI 工程师](https://docs.google.com/document/d/15usu1hkrrRLRjcq_3nCTT-0ljEcgiC44iSdvdqrCprk/edit?usp=sharing) 计划的一部分，涵盖 AI-2[...]。
 
-We have Two Hunches, the future of Pakistan depends on it, let's make sure that we are not wrong:
+我们有两个假设，巴基斯坦的未来取决于这些假设，让我们确保它们正确无误：
 
-It is very important for Pakistan that we bet on the right horses for the upcoming age of Agentic AI. We will be training millions of Agentic AI Developers all over Pakistan and online around the world and building startups, we cant afford to be wrong.
+对于巴基斯坦来说，押注即将到来的 Agentic AI 时代的正确技术非常重要。我们将在巴基斯坦及全球范围内在线培训数百万名 Agentic AI 开发者。
 
-Hunch #1: Dapr
-We feel Dapr, Dapr Actors, Dapr Workflows, and Dapr Agents will be the core technology in building the next generation multi ai agentic systems, is my hunch correct?
+### 假设 #1：Dapr
+我们认为 Dapr、Dapr Actors、Dapr Workflows 和 Dapr Agents 将是构建下一代多 AI Agentic 系统的核心技术，我的假设正确吗？
 
-Hunch #2: OpenAI Agents SDK
-We also have a hunch that OpenAI Agents SDK will be the go to framework for beginners to start learning Agentic AI?
+### 假设 #2：OpenAI Agents SDK
+我们也认为 OpenAI Agents SDK 将是初学者学习 Agentic AI 的首选框架？
 
-Let us see what the best AI has to say about our hunches:
+让我们看看最好的 AI 对我们的假设有什么看法：
 
-https://chatgpt.com/share/6811b893-82cc-8001-9037-e45bcd91cc64
+https://chatgpt.com/share/6811b893-82cc-8001-9037-e45bcd91cc64  
+https://g.co/gemini/share/1f31c876520b  
+https://grok.com/share/bGVnYWN5_4343d342-c7df-4b06-9174-487a64f59d53  
 
-https://g.co/gemini/share/1f31c876520b
+---
 
-https://grok.com/share/bGVnYWN5_4343d342-c7df-4b06-9174-487a64f59d53
+## 这个 Panaversity 项目应对的关键挑战：
 
+**“如何设计能够处理 1000 万个并发 AI 代理而不失败的 AI 代理？”**
 
-
-## This Panaversity Initiative Tackles the Critical Challenge: 
-
-**“How do we design AI Agents that can handle 10 million concurrent AI Agents without failing?”**
-
-Note: The challenge is intensified as we must guide our students to solve this issue with minimal financial resources available during training.
+注：由于训练期间财务资源有限，我们必须指导学生以最小的成本解决这个问题。
 
 <p align="center">
 <img src="./img/cover.png" width="600">
 </p>
 
-Kubernetes with Dapr can theoretically handle 10 million concurrent agents in an agentic AI system without failing, but achieving this requires extensive optimization, significant infrastructure, and careful engineering. While direct evidence at this scale is limited, logical extrapolation from existing benchmarks, Kubernetes’ scalability, and Dapr’s actor model supports feasibility, especially with rigorous tuning and resource allocation.
+Kubernetes 与 Dapr 理论上可以在 Agentic AI 系统中处理 1000 万个并发代理而不失败，但要实现这一目标需要广泛的优化、显著的基础设施和[...]。
 
-**Condensed Argument with Proof and Logic**:
+**论点摘要及逻辑证明**：
 
-1. **Kubernetes Scalability**:
-   - **Evidence**: Kubernetes supports up to 5,000 nodes and 150,000 pods per cluster (Kubernetes docs), with real-world examples like PayPal scaling to 4,000 nodes and 200,000 pods (InfoQ, 2023) and KubeEdge managing 100,000 edge nodes and 1 million pods (KubeEdge case studies). OpenAI’s 2,500-node cluster for AI workloads (OpenAI blog, 2022) shows Kubernetes can handle compute-intensive tasks.
-   - **Logic**: For 10 million users, a cluster of 5,000–10,000 nodes (e.g., AWS g5 instances with GPUs) can distribute workloads. Each node can run hundreds of pods, and Kubernetes’ horizontal pod autoscaling (HPA) dynamically adjusts to demand. Bottlenecks (e.g., API server, networking) can be mitigated by tuning etcd, using high-performance CNIs like Cilium, and optimizing DNS.
+1. **Kubernetes 可扩展性**：
+   - **证据**：Kubernetes 支持每个集群最多 5000 个节点和 15 万个 pod（Kubernetes 文档），真实案例如 PayPal 扩展到 4000 个节点和 20 万个 pod（InfoQ, 2023）[...]
+   - **逻辑**：对于 1000 万用户，5000–10000 个节点的集群（例如 AWS g5 实例与 GPU）可以分配工作负载。每个节点可以运行数百个 pod，而 Kubernetes 的水平扩展[...]
 
-2. **Dapr’s Efficiency for Agentic AI**:
-   - **Evidence**: Dapr’s actor model supports thousands of virtual actors per CPU core with double-digit millisecond latency (Dapr docs, 2024). Case studies show Dapr handling millions of events, e.g., Tempestive’s IoT platform processing billions of messages (Dapr blog, 2023) and DeFacto’s system managing 3,700 events/second (320 million daily) on Kubernetes with Kafka (Microsoft case study, 2022).
-   - **Logic**: Agentic AI relies on stateful, low-latency agents. Dapr Agents, built on the actor model, can represent 10 million users as actors, distributed across a Kubernetes cluster. Dapr’s state management (e.g., Redis) and pub/sub messaging (e.g., Kafka) ensure efficient coordination and resilience, with automatic retries preventing failures. Sharding state stores and message brokers scales to millions of operations/second.
+2. **Dapr 在 Agentic AI 中的高效性**：
+   - **证据**：Dapr 的 Actor 模型支持每个 CPU 核心成千上万个虚拟 Actor，延迟为两位数毫秒（Dapr 文档，2024）。案例研究显示 Dapr 能够处理数百万事件，e[...]
+   - **逻辑**：Agentic AI 依赖于状态化、低延迟的代理。基于 Actor 模型的 Dapr Agent 可以将 1000 万用户表示为 Actor，分布在 Kubernetes 集群中。Dapr 的 st[...]
 
-3. **Handling AI Workloads**:
-   - **Evidence**: LLM inference frameworks like vLLM and TGI serve thousands of requests/second per GPU (vLLM benchmarks, 2024). Kubernetes orchestrates GPU workloads effectively, as seen  Kubernetes manages GPU workloads, as seen in NVIDIA’s AI platform scaling to thousands of GPUs (NVIDIA case study, 2023).
-   - **Logic**: Assuming each user generates 1 request/second requiring 0.01 GPU, 10 million users need ~100,000 GPUs. Batching, caching, and model parallelism reduce this to a feasible ~10,000–20,000 GPUs, achievable in hyperscale clouds (e.g., AWS). Kubernetes’ resource scheduling ensures optimal GPU utilization.
+3. **处理 AI 工作负载**：
+   - **证据**：LLM 推理框架如 vLLM 和 TGI 每 GPU 每秒可处理数千个请求（vLLM 基准测试，2024）。Kubernetes 有效协调 GPU 工作负载，案例如 Kubernetes[...]
+   - **逻辑**：假设每个用户每秒生成 1 个请求，需要 0.01 GPU，则 1000 万用户需要约 10 万个 GPU。通过批处理、缓存和模型并行性可将需求减少到约 1 万–2 万[...]
 
-4. **Networking and Storage**:
-   - **Evidence**: EMQX on Kubernetes handled 1 million concurrent connections with tuning (EMQX blog, 2024). C10M benchmarks (2013) achieved 10 million connections using optimized stacks. Dapr’s state stores (e.g., Redis) support millions of operations/second (Redis benchmarks, 2024).
-   - **Logic**: 10 million connections require ~100–1,000 Gbps bandwidth, supported by modern clouds. High-throughput databases (e.g., CockroachDB) and caching (e.g., Redis Cluster) handle 10 TB of state data for 10 million users (1 KB/user). Kernel bypass (e.g., DPDK) and eBPF-based CNIs (e.g., Cilium) minimize networking latency.
+4. **网络和存储**：
+   - **证据**：EMQX 在 Kubernetes 上通过优化处理了 100 万个并发连接（EMQX 博客，2024）。C10M 基准测试（2013）通过优化栈实现了 1000 万连接。Dapr 的 st[...]
+   - **逻辑**：1000 万连接需要约 100–1000 Gbps 带宽，现代云支持此需求。高吞吐量数据库（例如 CockroachDB）和缓存（例如 Redis 集群）可处理 10 TB 的[...]
 
-5. **Resilience and Monitoring**:
-   - **Evidence**: Dapr’s resiliency policies (retries, circuit breakers) and Kubernetes’ self-healing (pod restarts) ensure reliability (Dapr docs, 2024). Dapr’s OpenTelemetry integration scales monitoring for millions of agents (Prometheus case studies, 2023).
-   - **Logic**: Real-time metrics (e.g., latency, error rates) and distributed tracing prevent cascading failures. Kubernetes’ liveness probes and Dapr’s workflow engine recover from crashes, ensuring 99.999% uptime.
+5. **弹性与监控**：
+   - **证据**：Dapr 的弹性策略（重试、断路器）和 Kubernetes 的自愈功能（pod 重启）确保了可靠性（Dapr 文档，2024）。Dapr 的 OpenTelemetry 集成扩展[...]
+   - **逻辑**：实时指标（例如延迟、错误率）和分布式追踪防止级联故障。Kubernetes 的存活探针和 Dapr 的工作流引擎从崩溃中恢复，确保[...]
 
-**Feasibility with Constraints**:
-- **Challenge**: No direct benchmark exists for 10 million concurrent users with Dapr/Kubernetes in an agentic AI context. Infrastructure costs (e.g., $10M–$100M for 10,000 nodes) are prohibitive for low-budget scenarios.
-- **Solution**: Use open-source tools (e.g., Minikube, kind) for local testing and cloud credits (e.g., AWS Educate) for students. Simulate 10 million users with tools like Locust on smaller clusters (e.g., 100 nodes), extrapolating results. Optimize Dapr’s actor placement and Kubernetes’ resource quotas to maximize efficiency on limited hardware. Leverage free-tier databases (e.g., MongoDB Atlas) and message brokers (e.g., RabbitMQ).
+**在约束条件下的可行性**：
+- **挑战**：没有直接的基准表明在 Agentic AI 环境中使用 Dapr/Kubernetes 处理 1000 万并发用户的能力。基础设施成本（例如 1 万–1 亿美元用于 1 万个节点）对[...]
+- **解决方案**：使用开源工具（例如 Minikube、kind）进行本地测试，为学生提供云信用（例如 AWS Educate）。通过工具如 Locust 模拟 1000 万用户的小型集群[...]
 
-**Conclusion**: Kubernetes with Dapr can handle 10 million concurrent users in an agentic AI system, supported by their proven scalability, real-world case studies, and logical extrapolation. For students with minimal budgets, small-scale simulations, open-source tools, and cloud credits make the problem tractable, though production-scale deployment requires hyperscale resources and expertise.
+**结论**：Kubernetes 与 Dapr 能够在 Agentic AI 系统中处理 1000 万并发用户，其可扩展性已被证明，真实案例研究和逻辑推导也支持这一论点。对于学[...]
 
+---
 
-**Agentic AI Top Trend of 2025**
+**2025 年 Agentic AI 的顶级趋势**
 
 <p align="center">
 <img src="./img/toptrend.webp" width="200">
 </p>
 
+---
 
-## The Dapr Agentic Cloud Ascent (DACA) Design Pattern Addresses 10 Million AI Agents Challenge 
+## Dapr Agentic Cloud Ascent (DACA) 设计模式解决 1000 万 AI 代理挑战
 
-Let's understand and learn about "Dapr Agentic Cloud Ascent (DACA)", our winning design pattern for developing and deploying planet scale multi-agent systems.
+让我们来了解和学习“Dapr Agentic Cloud Ascent (DACA)”——开发和部署全球规模多代理系统的制胜设计模式。
 
-### Executive Summary: Dapr Agentic Cloud Ascent (DACA)
+### 执行摘要：Dapr Agentic Cloud Ascent (DACA)
 
-The Dapr Agentic Cloud Ascent (DACA) guide introduces a strategic design pattern for building and deploying sophisticated, scalable, and resilient agentic AI systems. Addressing the complexities of modern AI development, DACA integrates the OpenAI Agents SDK for core agent logic with the Model Context Protocol (MCP) for standardized tool use and the Agent2Agent (A2A) protocol for seamless inter-agent communication, all underpinned by the distributed capabilities of Dapr. **Grounded in AI-first and cloud-first principles**, DACA promotes the use of stateless, containerized applications deployed on platforms like Azure Container Apps (Serverless Containers) or Kubernetes, enabling efficient scaling from local development to planetary-scale production, potentially leveraging free-tier cloud services and self-hosted LLMs for cost optimization. The pattern emphasizes modularity, context-awareness, and standardized communication, envisioning an **Agentia World** where diverse AI agents collaborate intelligently. Ultimately, DACA offers a robust, flexible, and cost-effective framework for developers and architects aiming to create complex, cloud-native agentic AI applications that are built for scalability and resilience from the ground up.
+Dapr Agentic Cloud Ascent (DACA) 指南介绍了一种战略设计模式，用于构建和部署复杂、可扩展且具有弹性的 Agentic AI 系统。解决现代化体系结构的复杂性[...]
 
 
-**[Comprehensive Guide to Dapr Agentic Cloud Ascent (DACA) Design Pattern](https://github.com/panaversity/learn-agentic-ai/blob/main/comprehensive_guide_daca.md)**
+**[Dapr Agentic Cloud Ascent (DACA) 设计模式综合指南](https://github.com/panaversity/learn-agentic-ai/blob/main/comprehensive_guide_daca.md)**
 
 <p align="center">
 <img src="./img/ascent.png" width="500">
@@ -89,76 +89,72 @@ The Dapr Agentic Cloud Ascent (DACA) guide introduces a strategic design pattern
 <img src="./img/architecture1.png" width="400">
 </p>
 
+---
 
+### 目标用户
+- **Agentic AI 开发者和 AgentOps 专业人士**
 
+### 为什么 OpenAI Agents SDK 应成为大多数用例的主要开发框架？
 
-### Target User
-- **Agentic AI Developer and AgentOps Professionals**
+**表 1：AI 代理框架抽象级别对比**
 
-### Why OpenAI Agents SDK should be the main framework for agentic development for most use cases?
+| **框架**                | **抽象级别**      | **关键特性**                                                                                 | **学习曲线**   | **控制级别**  | **简洁性**  |
+|-----------------------|-----------------|-----------------------------------------------------------------------------------------|--------------|--------------|-----------|
+| **OpenAI Agents SDK** | 最小化          | Python 优先，核心原语（代理、交接、护栏），直接控制                                          | 低           | 高           | 高         |
+| **CrewAI**            | 中等            | 基于角色的代理、团队、任务，专注于协作                                                     | 低-中         | 中           | 中         |
+| **AutoGen**           | 高             | 会话代理、灵活的会话模式、人工干预支持                                                     | 中           | 中           | 中         |
+| **Google ADK**        | 中等            | 多代理层级、Google 云集成（Gemini, Vertex AI）、丰富的工具生态系统、双向流式传输                  | 中           | 中-高        [...]
+| **LangGraph**         | 低-中           | 基于图的工作流、节点、边、显式状态管理                                                    | 非常高         | 非常高        | 低         |
+| **Dapr Agents**       | 中等            | 状态化虚拟 Actor、事件驱动的多代理工作流、Kubernetes 集成、50+ 数据连接器、内置弹性           | 中           | 中           [...]
 
-**Table 1: Comparison of Abstraction Levels in AI Agent Frameworks**
+表格清晰地说明了为什么 OpenAI Agents SDK 应成为大多数用例的主要开发框架：
+- 它在**简洁性**和**易用性**方面表现出色，使其成为快速开发和广泛可用性的最佳选择。
+- 它提供**高控制**和**最小抽象**，在不增加复杂性的情况下提供了 Agentic 开发所需的灵活性。
+- 与大多数替代方案（CrewAI、AutoGen、Google ADK、Dapr Agents）相比，它在可用性和功能之间取得了更好的平衡，而 LangGraph 提供了更多控制，但其复杂性使得它在通用[...]
 
-| **Framework**         | **Abstraction Level** | **Key Characteristics**                                                                 | **Learning Curve** | **Control Level** | **Simplicity** |
-|-----------------------|-----------------------|-----------------------------------------------------------------------------------------|--------------------|-------------------|----------------|
-| **OpenAI Agents SDK** | Minimal              | Python-first, core primitives (Agents, Handoffs, Guardrails), direct control           | Low               | High             | High           |
-| **CrewAI**            | Moderate             | Role-based agents, crews, tasks, focus on collaboration                                | Low-Medium        | Medium           | Medium         |
-| **AutoGen**           | High                 | Conversational agents, flexible conversation patterns, human-in-the-loop support       | Medium            | Medium           | Medium         |
-| **Google ADK**        | Moderate             | Multi-agent hierarchies, Google Cloud integration (Gemini, Vertex AI), rich tool ecosystem, bidirectional streaming | Medium            | Medium-High      | Medium         |
-| **LangGraph**         | Low-Moderate         | Graph-based workflows, nodes, edges, explicit state management                        | Very High         | Very High        | Low            |
-| **Dapr Agents**       | Moderate             | Stateful virtual actors, event-driven multi-agent workflows, Kubernetes integration, 50+ data connectors, built-in resiliency | Medium            | Medium-High      | Medium         |
+如果优先考虑易用性、灵活性和 Agentic 开发的快速迭代，基于表格，OpenAI Agents SDK 是明确的赢家。然而，如果您的项目需要企业级功能[...]
 
+---
 
-The table clearly identifies why OpenAI Agents SDK should be the main framework for agentic development for most use cases:
-- It excels in **simplicity** and **ease of use**, making it the best choice for rapid development and broad accessibility.
-- It offers **high control** with **minimal abstraction**, providing the flexibility needed for agentic development without the complexity of frameworks like LangGraph.
-- It outperforms most alternatives (CrewAI, AutoGen, Google ADK, Dapr Agents) in balancing usability and power, and while LangGraph offers more control, its complexity makes it less practical for general use.
+## 核心 DACA Agentic AI 课程：
 
-If your priority is ease of use, flexibility, and quick iteration in agentic development, OpenAI Agents SDK is the clear winner based on the table. However, if your project requires enterprise-scale features (e.g., Dapr Agents) or maximum control for complex workflows (e.g., LangGraph), you might consider those alternatives despite their added complexity. 
+### AI-201：Agentic AI 和 DACA AI-First 开发基础（14 周）
 
-## Core DACA Agentic AI Courses:
+- ⁠Agentic & DACA 理论 - 1 周
+- UV 和 OpenAI Agents SDK - 5 周
+- ⁠Agentic 设计模式 - 2 周
+- ⁠内存 [LangMem & mem0] - 1 周
+- Postgres/Redis（托管云） - 1 周
+- FastAPI（基础） - 2 周
+- ⁠容器化（Rancher Desktop） - 1 周
+- Hugging Face Docker Spaces - 1 周
 
-### AI-201:  Fundamentals of Agentic AI and DACA AI-First Development (14 weeks)
+**[AI-201 视频播放列表](https://www.youtube.com/playlist?list=PL0vKVrkG4hWovpr0FX6Gs-06hfsPDEUe6)**
 
-- ⁠Agentic & DACA Theory - 1 week
-- UV & ⁠OpenAI Agents SDK - 5 weeks
-- ⁠Agentic Design Patterns - 2 weeks 
-- ⁠Memory [LangMem & mem0] 1 week
-- Postgres/Redis (Managed Cloud) - 1 week
-- FastAPI (Basic)  - 2 weeks
-- ⁠Containerization (Rancher Desktop) - 1 week
-- Hugging Face Docker Spaces - 1 week
+注：这些视频用于额外学习，不涵盖所有现场课程内容。
 
+先决条件：[AI-101：现代 AI Python 编程 - 通向智能系统的起点](https://github.com/panaversity/learn-modern-ai-python)
 
-**[AI-201 Video Playlist](https://www.youtube.com/playlist?list=PL0vKVrkG4hWovpr0FX6Gs-06hfsPDEUe6)**
+---
 
-Note: These videos are for additional learning, and do not cover all the material taught in the onsite classes.
+### AI-202：DACA 云优先 Agentic AI 开发（14 周）
+- 使用本地 Kubernetes 的 Rancher Desktop - 4 周
+- 高级 Kubernetes FastAPI - 2 周
+- Dapr [工作流，状态，发布订阅，密钥管理] - 3 周
+- CockRoachDB 和 RabbitMQ 托管服务 - 2 周
+- ⁠模型上下文协议 -  2 周
+- ⁠无服务器容器部署（ACA） - 2 周
 
-Prerequisite: Successful completion of [AI-101: Modern AI Python Programming - Your Launchpad into Intelligent Systems](https://github.com/panaversity/learn-modern-ai-python)
+先决条件：成功完成 AI-201
 
-### AI-202: DACA Cloud-First Agentic AI Development (14 weeks)
-- Rancher Desktop with Local Kubernetes - 4 weeks
-- Advanced FastAPI with Kubernetes - 2 weeks
-- Dapr [workflows, state, pubsub, secrets] - 3 Week
-- CockRoachdb & RabbitMQ Managed Services - 2 weeks
-- ⁠Model Context Protocol -  2 weeks
-- ⁠Serverless Containers Deployment (ACA) - 2 weeks
+---
 
-Prerequisite: Successful completion of AI-201
+### AI-301：DACA 全球规模分布式 AI 代理（14 周）
+- ⁠认证 Kubernetes 应用开发者 (CKAD) - 4 周
+- ⁠A2A 协议 - 2 周
+- ⁠语音代理 - 2 周
+- ⁠Dapr 代理/Google ADK - 2 周
+- ⁠自托管 LLMs - 1 周
+- 微调 LLMs - 3 周
 
-### AI-301 DACA Planet-Scale Distributed AI Agents (14 Weeks)
-- ⁠Certified Kubernetes Application Developer (CKAD) - 4 weeks
-- ⁠A2A Protocol - 2 weeks
-- ⁠Voice Agents - 2 weeks
-- ⁠Dapr Agents/Google ADK - 2 weeks
-- ⁠Self-LLMs Hosting - 1 week
-- Finetuning LLMs - 3 weeks
-
-Prerequisite: Successful completion of AI-201 & AI-202
-
-
-
-
-
-
-
+先决条件：成功完成 AI-201 和 AI-202
